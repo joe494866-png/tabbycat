@@ -1,3 +1,4 @@
 # Placeholder for render.
-from .base import *
+import os
+from .core import *
 from .render import *
