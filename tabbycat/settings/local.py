@@ -3,13 +3,17 @@ import os
 import sys
 from split_settings.tools import include
 
-# 1. 将 apps 目录强制加入 Python 路径，确保 actionlog 等模块可以被全局 import
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-APPS_DIR = os.path.join(BASE_DIR, 'apps')
-if APPS_DIR not in sys.path:
-    sys.path.insert(0, APPS_DIR)
+# 获取当前 settings 目录以及项目 root 路径
+SETTINGS_DIR = os.path.dirname(os.path.abspath(__file__)) # tabbycat/settings
+TABBYCAT_DIR = os.path.dirname(SETTINGS_DIR)               # tabbycat
+APPS_DIR = os.path.join(TABBYCAT_DIR, 'apps')               # tabbycat/apps
 
-# 2. 按顺序导入基础配置与 Render 配置
+# 确保 apps 目录和 tabbycat 根目录都在 sys.path 最前面
+for path in [APPS_DIR, TABBYCAT_DIR]:
+    if path not in sys.path:
+        sys.path.insert(0, path)
+
+# 加载基础设置和 Render 专属设置
 include(
     'core.py',
     'render.py',
