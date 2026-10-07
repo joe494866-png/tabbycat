@@ -18,3 +18,5 @@ include(
     'core.py',
     'render.py',
 )
+
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
