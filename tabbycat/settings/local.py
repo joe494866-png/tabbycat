@@ -19,4 +19,15 @@ include(
     'render.py',
 )
 
+# 覆盖静态文件存储后端，忽略缺失文件哈希映射引起的崩溃
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
+
+# 兼容旧版 Django 的静态文件设置
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
